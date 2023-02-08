@@ -1,5 +1,5 @@
 {
-    "name": "winspiker/installment-module",
+    "name": "winspiker/module-installment",
     "description": "This module will add the Installment option for the OXID online store.",
     "type": "oxideshop-module",
     "keywords": [
@@ -21,6 +21,7 @@
     },
     "prefer-stable": true,
     "prefer-dist": true,
+    "minimum-stability": "dev",
     "require": {
         "php": "^7.4 | ^8.0"
     },
