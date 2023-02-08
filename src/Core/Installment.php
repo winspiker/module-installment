@@ -9,20 +9,19 @@ use OxidEsales\Eshop\Core\Price;
 class Installment
 {
     private Price $fullPrice;
-    private ?Price $firstPayment;
-    private ?Price $monthlyPayment;
-    private ?int $paymentMonths;
+    private Price $firstPayment;
+    private Price $monthlyPayment;
+    private int $paymentMonths;
 
     public function __construct(Price $fullPrice, float $firstPayment, int $paymentMonths)
     {
-        // TODO: Get fullPrice by user group (A, B, C)
         $this->fullPrice = $fullPrice;
         $this->firstPayment = new Price($firstPayment);
         $this->paymentMonths = $paymentMonths;
         $this->monthlyPayment = $this->calculateMonthlyPayment();
     }
 
-    private function calculateMonthlyPayment(): ?Price
+    private function calculateMonthlyPayment(): Price
     {
         $fullPrice = $this->fullPrice->getPrice() * 100;
         $firstPayment = $this->firstPayment->getPrice() * 100;
@@ -34,15 +33,15 @@ class Installment
     /**
      * @return \OxidEsales\Eshop\Core\Price|null
      */
-    public function getFirstPayment(): ?Price
+    public function getFirstPayment(): Price
     {
         return $this->firstPayment;
     }
 
     /**
-     * @return \OxidEsales\Eshop\Core\Price|null
+     * @return \OxidEsales\Eshop\Core\Price
      */
-    public function getMonthlyPayment(): ?Price
+    public function getMonthlyPayment(): Price
     {
         return $this->monthlyPayment;
     }
@@ -50,7 +49,7 @@ class Installment
     /**
      * @return int|null
      */
-    public function getPaymentMonths(): ?int
+    public function getPaymentMonths(): int
     {
         return $this->paymentMonths;
     }

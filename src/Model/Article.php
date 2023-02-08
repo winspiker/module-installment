@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace OxidEsales\InstallmentModule\Model;
 
 use OxidEsales\InstallmentModule\Core\Installment;
@@ -20,12 +22,12 @@ class Article extends Article_parent
         return ($this->getFirstPayment() !== 0.0) && ($this->getPaymentMonths() !== 0);
     }
 
-    public function getFirstPayment(): ?float
+    public function getFirstPayment(): float
     {
         return (float)$this->getFieldData('OXFIRSTPAYMENT');
     }
 
-    public function getPaymentMonths(): ?int
+    public function getPaymentMonths(): int
     {
         return (int)$this->getFieldData('OXPAYMENTMONTHS');
     }
