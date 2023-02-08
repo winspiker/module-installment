@@ -36,7 +36,7 @@
                             [{oxmultilang ident="INSTALLMENT_FIRST_PAYMENT"}]
                         </div>
                         <div class="block2">
-                            [{$oFirstPayment->getPrice()}] [{$currency->sign}]
+                            [{$oFirstPayment->getAmount()}] [{$currency->sign}]
                         </div>
                     </div>
                     <div class="popupText">
@@ -52,12 +52,12 @@
                             [{oxmultilang ident="INSTALLMENT_MONTHLY_PAYMENT"}]
                         </div>
                         <div class="block2">
-                            [{$oMonthlyPayment->getPrice()}] [{$currency->sign}]
+                            [{$oMonthlyPayment->getAmount()}] [{$currency->sign}]
                         </div>
                     </div>
                     <div class="fullPrice popupText">
                         <p>[{oxmultilang ident="INSTALLMENT_FULL_PRICE"}]</p>
-                        <p>[{$oFullPrice->getPrice()}] [{$currency->sign}]</p>
+                        <p>[{$oFullPrice->getAmount()}] [{$currency->sign}]</p>
                     </div>
                 </div>
             </div>

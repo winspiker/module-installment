@@ -23,7 +23,10 @@
     "prefer-dist": true,
     "minimum-stability": "dev",
     "require": {
-        "php": "^7.4 | ^8.0"
+        "php": "^7.4 | ^8.0",
+        "ext-json": "*",
+        "brick/math": "~0.10.1 || ~0.11.0",
+        "brick/money": "*"
     },
     "autoload": {
         "psr-4": {

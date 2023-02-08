@@ -48,10 +48,13 @@ class Article extends Article_parent
             $this->_isLoaded = true;
 
             if ($this->isInstallmentActive()) {
+                $currency = $this->getConfig()->getActShopCurrencyObject()->name;
+                $fullPrice = $this->getPrice()->getPrice();
                 $this->installment = new Installment(
-                            $this->getPrice(),
+                            $fullPrice,
                          $this->getFirstPayment(),
-                       $this->getPaymentMonths()
+                       $this->getPaymentMonths(),
+                            $currency
                 );
             }
 

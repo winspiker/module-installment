@@ -4,61 +4,62 @@ declare(strict_types=1);
 
 namespace OxidEsales\InstallmentModule\Core;
 
-use OxidEsales\Eshop\Core\Price;
+use Brick\Math\Exception\MathException;
+use Brick\Math\Exception\NumberFormatException;
+use Brick\Math\Exception\RoundingNecessaryException;
+use Brick\Math\RoundingMode;
+use Brick\Money\Exception\MoneyMismatchException;
+use Brick\Money\Exception\UnknownCurrencyException;
+use Brick\Money\Money;
 
 class Installment
 {
-    private Price $fullPrice;
-    private Price $firstPayment;
-    private Price $monthlyPayment;
+    private Money $fullPrice;
+    private Money $firstPayment;
+    private Money $monthlyPayment;
     private int $paymentMonths;
 
-    public function __construct(Price $fullPrice, float $firstPayment, int $paymentMonths)
+    /**
+     * @throws RoundingNecessaryException
+     * @throws MoneyMismatchException
+     * @throws MathException
+     * @throws UnknownCurrencyException
+     * @throws NumberFormatException
+     */
+    public function __construct(float $fullPrice, float $firstPayment, int $paymentMonths, string $currency)
     {
-        $this->fullPrice = $fullPrice;
-        $this->firstPayment = new Price($firstPayment);
+        $this->fullPrice = Money::of($fullPrice, $currency);
+        $this->firstPayment = Money::of($firstPayment, $currency);
         $this->paymentMonths = $paymentMonths;
         $this->monthlyPayment = $this->calculateMonthlyPayment();
     }
 
-    private function calculateMonthlyPayment(): Price
+    /**
+     * @throws MathException
+     * @throws MoneyMismatchException
+     */
+    private function calculateMonthlyPayment(): Money
     {
-        $fullPrice = $this->fullPrice->getPrice() * 100;
-        $firstPayment = $this->firstPayment->getPrice() * 100;
-        $payment = ($fullPrice - $firstPayment) / $this->paymentMonths;
-
-        return new Price($payment/100);
+        return $this->fullPrice->minus($this->firstPayment)->dividedBy($this->paymentMonths, RoundingMode::UP);
     }
 
-    /**
-     * @return \OxidEsales\Eshop\Core\Price|null
-     */
-    public function getFirstPayment(): Price
+    public function getFirstPayment(): Money
     {
         return $this->firstPayment;
     }
 
-    /**
-     * @return \OxidEsales\Eshop\Core\Price
-     */
-    public function getMonthlyPayment(): Price
+    public function getMonthlyPayment(): Money
     {
         return $this->monthlyPayment;
     }
 
-    /**
-     * @return int|null
-     */
+    public function getFullPrice(): Money
+    {
+        return $this->fullPrice;
+    }
+
     public function getPaymentMonths(): int
     {
         return $this->paymentMonths;
-    }
-
-    /**
-     * @return \OxidEsales\Eshop\Core\Price
-     */
-    public function getFullPrice(): Price
-    {
-        return $this->fullPrice;
     }
 }
