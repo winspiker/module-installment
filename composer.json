@@ -1,0 +1,38 @@
+{
+    "name": "winspiker/installment-module",
+    "description": "This module will add the Installment option for the OXID online store.",
+    "type": "oxideshop-module",
+    "keywords": [
+        "oxid",
+        "modules",
+        "eShop"
+    ],
+    "license": [
+        "GPL-3.0"
+    ],
+    "extra": {
+        "oxideshop": {
+            "target-directory": "winspiker/oeinstallment",
+            "blacklist-filter": [
+                "source/**/*",
+                "vendor/**/*"
+            ]
+        }
+    },
+    "prefer-stable": true,
+    "prefer-dist": true,
+    "require": {
+        "php": "^7.4 | ^8.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "OxidEsales\\InstallmentModule\\": "src/"
+        }
+    },
+    "config": {
+        "allow-plugins": {
+            "oxid-esales/oxideshop-composer-plugin": true,
+            "oxid-esales/oxideshop-unified-namespace-generator": true
+        }
+    }
+}

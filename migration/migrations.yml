@@ -1,0 +1,4 @@
+name: OXID Installment module (oe_installment)
+migrations_namespace: OxidEsales\InstallmentModule\Migrations
+table_name: oxmigrations_oe_installment
+migrations_directory: data
