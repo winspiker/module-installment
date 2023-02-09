@@ -9,7 +9,6 @@ use OxidEsales\InstallmentModule\Core\Installment;
 
 class Article extends Article_parent
 {
-
     private ?Installment $installment = null;
 
     public function getInstallment(): ?Installment
@@ -19,7 +18,9 @@ class Article extends Article_parent
 
     public function isInstallmentActive(): bool
     {
-        return ($this->getFirstPayment() !== 0.0) && ($this->getPaymentMonths() !== 0);
+        $fullPrice = $this->getPrice()->getPrice();
+        $tooBigFirstPayment = $this->getFirstPayment() > $fullPrice;
+        return ($this->getFirstPayment() !== 0.0) && ($this->getPaymentMonths() !== 0) && (!$tooBigFirstPayment);
     }
 
     public function getFirstPayment(): float
